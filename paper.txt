@@ -1,0 +1,561 @@
+Finger ECG Signal for User Authentication: Usability and Performance
+Hugo Placido da Silva ´
+IT - Inst. de Telecomunicac¸oes ˜
+IST - Inst. Sup. Tecnico ´
+Av. Rov. Pais, 1049, Lisboa
+hsilva@lx.it.pt
+Andre Lourenc¸o ´
+IT - Inst. de Telecomunicac¸oes ˜
+ISEL - Inst. Sup. Eng. de Lisboa
+R. Co. Em´ıdio Nav., 1959, Lisboa
+alourenco@deetc.isel.ipl.pt
+Ana Fred
+IT - Inst. de Telecomunicac¸oes ˜
+Av. Rov. Pais, 1049, Lisboa
+afred@lx.it.pt
+Anil K. Jain
+Michigan State University
+3115 Eng. Bldg, MI 48824-1226
+jain@cse.msu.edu
+Abstract
+Over the past few years, the evaluation of Electrocardiographic (ECG) signals as a prospective biometric modality
+has revealed promising results. Given the vital and continuous nature of this information source, ECG signals offer
+several advantages to the field of biometrics; yet, several
+challenges currently prevent the ECG from being adopted
+as a biometric modality in operational settings. These arise
+partially due to ECG signal’s clinical tradition and intrusiveness, but also from the lack of evidence on the permanence of the ECG templates over time. The problem of intrusiveness has been recently overcome with the “off-theperson” approach for capturing ECG signals. In this paper
+we provide an evaluation of the permanence of ECG signals collected at the fingers, with respect to the biometric
+authentication performance. Our experimental results on a
+small dataset suggest that further research is necessary to
+account for and understand sources of variability found in
+some subjects. Despite these limitations, ”off-the-person”
+ECG appears to be a viable trait for multi-biometric or
+standalone biometrics, low user throughput, real-world scenarios.
+1. Introduction
+The study of Electrocardiographic (ECG) signals as a
+potential biometric trait can be traced back to the ground
+breaking works by Biel et al. [2] and Kyoso & Uchiyama
+[10]. Although many authors have continued to contribute
+to the field [8, 16, 17, 24], a limiting aspect of this modality
+has been the intrusiveness of the sensor device, which most
+often requires a multi-lead placement at the chest and limbs
+of the subject. The work on ECG biometrics has seen a new
+dawn through the introduction of “off-the-person” sensing
+[20], which makes the acceptability of the ECG comparable
+to that found in more established modalities such as the iris,
+palmprint, fingerprint, among others [11, 18].
+In principle, the ECG is quite appealing for biometrics
+[18]; in light of the seven factors defined in Jain et al. [9],
+the ECG modality is admissible given that it can be found
+in virtually all living humans (Universality), its authentication capabilities for circumscribed groups of individuals
+has been shown (Uniqueness), it can be easily acquired using suitable devices (Measurability), it has been shown to
+perform accurately for subsets of the population (Performance), the “off-the-person” approach has made it acceptable (Acceptability), and it’s not easily spoofed as it depends
+on an internal body organ, the heart (Circumvention).
+Furthermore, ECG signals provide intrinsic aliveness detection and are continuously available, which are also highly
+desirable properties in biometrics. One of the open questions in ECG biometrics has been permanence, that is, the
+temporal invariance of the templates with respect to the matching algorithms. In this paper, we present the first smallscale study on the permanence of ECG signals collected
+under an “off-the-person” approach for biometric authentication, by comparing records collected at an interval of
+several months.
+The use of ECG signals as a biometric modality can be
+quite useful in low security verification (1:1 matching). Also,
+the sensing device presented in this paper is more natural to
+the user, given that there is no need for an explicit interaction with the device. Our work provides two main specific
+contributions for the field of ECG biometrics: a) Further
+insight regarding the performance of “off-the-person” ECG
+data; and b) Across session data matching.
+Figure 1. Waveforms collected from each of the specialized cells
+found in the heart, and their contribution to the prototypical heartbeat waveform (reprinted with permission from [13]).
+The rest of the paper is organized as follows: Section 2
+provides an introduction to key concepts within ECG biometrics; Section 3 describes the methodology adopted in
+our study; Section 4 describes the tested matching approaches;
+Section 5 summarizes the experimental results on real-world
+data; and Sections 6 and 7 present the discussion and conclusions.
+2. Background
+The human heart is characterized by a complex bioelectrical system, at the core of which are a set of myogenic
+cells whose main property is the periodic self-stimulation
+capability, which ultimately generates the cardiac cycle and
+rhythm. Today, both the heart cycle and rhythm are perfectly well-known concepts, extensively studied in the healthcare domain; the cycle is characterized by the typical heartbeat waveform (Figure 1), while the rhythm is commonly
+known as the heart rate. We refer the reader to the book by
+Malmivuo & Plonsey [13] for a detailed description of the
+physiological, and electrical properties of the heart.
+Throughout the years, several authors have argued about
+the properties of the ECG as it pertains to biometric recognition [1, 14, 18]. This research has mostly focused on:
+a) Recognition Methods; b) Template Extraction; c) and
+Sensing Devices. Figure 2 shows an overlay of heartbeat
+waveforms from two subjects, illustrating intra- and interclass diferences that can be found in the ECG.
+In terms of Recognition Methods, authors have mostly
+explored instance based learners [11, 16], neural networks
+[3, 16], statistical pattern recognition [8], and information
+theoretical approaches [6]; wavelets, support vector machines,
+and adaptive filtering techniques can also be found [5, 12].
+Figure 2. ECG heartbeat waveforms for two different users, illustrating the intra- and inter-class variability. In light gray we show
+the individual heartbeat waveforms, the solid black line depicts the
+mean of all heartbeat waveforms belonging to the subject, and the
+dashed black lines highlight the standard deviation.
+To date, benchmarking of ECG recognition methods has
+been mostly based on single-session data from clinical sources
+or public repositories (e.g. Physionet [7]) [2, 8, 24], or acquired using custom free-living protocols [1, 17].
+Regarding Template Extraction, existing approaches can
+be defined as fiducial, partially fiducial and non-fiducial.
+Fiducial methods use latency, slope, angle and other measurements derived from anchor points within the signal (e.g.
+P-QRS-T complexes), to create feature vectors that are used
+as input to the recognizer [2, 8, 17]. Partially-fiducial methods typically only use the R-peak to perform heartbeat waveform segmentation, adopting either the full waveform or a
+subset of it as input to the recognizer [11, 19, 24]. Nonfiducial methods extract information from the structure of
+the signals, without the need for any reference points [4, 5,
+6]; these methods are especially advantageous given that the
+process of identifying fiducial points can be challenging.
+Finally, several variations of the Sensor Devices can be
+found. Most of the work has been focused on signals collected through “on-the-person” approaches, which include
+multi- and single-lead clinical-grade ECG acquisition devices [2, 6, 8, 16, 17]. More recently, researchers have pivoted towards “off-the-person” approaches, enabling unobtrusive data acquisition at the hands and/or fingers [4, 11,
+15, 19, 20, 26]. In this approach, methods have evolved
+from a 3-electrode setup (positive, negative, and ground)
+[11, 15, 26], to a 2-electrode setup [4, 19]. The former
+has been used in short- [11, 15] and long-term performance
+evaluation studies [26], while in the later, only short-term
+validation has been performed [4, 20] (i.e. using data collected over a period of a few minutes or over the whole day).
+The experimental evaluation reported for ECG biometric
+recognition when using this non-standard electrode placement is mostly comprised of data collected in a single session, from which training and test data are extracted. Few
+references are found in the literature to permanence studies, and no known previous studies have addressed the issue
+of permanence in the context of the 2-electrode “off-theperson” approach’; this being the motivation for our work.
+3. Methodology
+3.1. Database
+Following the recent trend towards the “off-the-person”
+sensing approach, we focused our study on ECG data acquired at the fingers with dry Ag/AgCl electrodes, which is
+closer to an ubiquitous and real-world deployment scenario.
+Electrocardiographic (ECG) data acquisition was performed
+using the custom, two lead differential sensor design with
+virtual ground, found in Silva et al. [20]; for improved
+comfort and greater efficiency, the ECG electrodes were fitted to a supporting base, with the intended finger placement
+marked in an unequivocal way. Raw biosignals were acquired using a bioPLUX research Bluetooth wireless biosignal acquisition unit; this device was setup in a 12-bit resolution, 1kHz sampling frequency configuration.
+A total of 63 subjects were enrolled in the experiment,
+which involved two acquisition sessions separated by a 4-
+month interval. The demographics of the subjects included
+14 males and 49 females, with subject age ranging between
+18 and 50 years (20.68 ± 2.83). None of the participants
+reported any health problems, and all of them signed an informed consent form in order to participate in the experiment. In each of the sessions the subjects were asked to sit
+for 2 minutes in a resting position, with two fingers, one
+from the left and another from the right hand, placed on
+each of the dry electrodes.
+We highlight that the acquisition conditions and procedure were the same for all of the subjects, and for both sessions. Also, given the fact that a voltage potential differential is being measured, the signals measured at the fingers
+have exactly the same morphology as the signals measured
+at the hand palms due to the anatomical proximity of both
+areas. Figure 3 illustrates the application of the acquisition
+setup to the use case of interacting with a PC.
+3.2. Pre-processing
+The ECG signals are affected by multiple noise sources
+such as motion artifacts, power line and/or electromyography interference. Figure 4 presents the pre-processing steps
+followed by our approach for extracting the templates from
+the raw ECG signal. We designed a digital zero-phase forward and reverse Butterworth band pass filter with 5−20Hz
+cutoff frequencies, to limit the bandwidth of the raw data.
+Note that while for clinical applications, a larger pass band
+is required to preserve additional information1
+, for biometric authentication applications we can optimize the filtering
+taking into account the recognition accuracy.
+For experimental analysis, we followed a partially-fiducial
+approach, where the classifier is based on template matching, using the information content of the heartbeat waveforms, and as such, a compatible segmentation algorithm
+was adopted, following the work described by Lourenc¸o et
+al. [12]. This procedure determines the time instant of the
+R-peak, and the heartbeat waveform is considered to be the
+[−200; 400] milliseconds interval around that instant, for a
+template size of 900 bytes.
+Furthermore, in our study we considered that the templates can be computed based on 5 consecutive heartbeat
+waveforms, that is, we perform a filtering step in the template space. Two different approaches were evaluated for
+this step: a) the mean wave (x), which creates a smoothed
+version of the template; and b) the median wave (x˜), which
+is more robust to possible outliers.
+3.3. Outlier Removal
+Even after these pre-processing and feature extraction
+steps, the signals collected at the fingers are much more
+prone to noise than the regular ECG data obtained at the
+chest. As such, we discard spurious heartbeats using an
+outlier detection scheme based on the cosine distance to the
+mean heartbeat waveform in each recording session. Let
+X = {x1, ..., xn} denote the set of n individual heartbeat
+waveforms obtained after pre-processing; x
+min
+i
+and x
+max
+i
+are the minimum and the maximum absolute values of each
+individual heartbeat; the mean heartbeat waveform for a
+session is given by µx =
+1
+N
+Pn
+1
+xi
+. Our outlier removal
+step is performed as follows:
+1. Compute the cosine distance, Dcos (xi
+, µx), of each
+individual heartbeat waveform xi ∈ X to µx;
+2. Compute the 1
+st and 2
+nd order statistical moments of
+the distances Dcos (xi
+, µx): mean value, µDcos(xi,µx)
+and standard deviation, σDcos(xi,µx)
+;
+3. Compute the median of x
+min
+i
+and x
+max
+i
+, denoted as
+x˜min and x˜max, respectively;
+4. Scan the set of heartbeat waveforms X for the conditions below, and if any is met for a given xi ∈ X, xi
+is considered an outlier and discarded:
+(a) x
+max
+i
+does not correspond to the R-peak position (determined from the segmentation step);
+(b) x
+max
+i > 1.5 · x˜max and x
+min
+i < 1.5 · x˜min;
+1The recommended bandwidth proposed by the AHA and ANSI associations for diagnostics purpose is [0.05, 150] Hz
+(a) Sensor pad applied to a keyboard (b) Interaction with the sensor pad, with the ECG shown on screen.
+Figure 3. ECG sensor pad arrangement (left) and interaction with the sensor (right); the two light gray circular areas in Figure 3(a) are the
+dry hand palm/finger pads.
+Figure 4. ECG pre-processing and template extraction process. Raw data is acquired from the “off-the-person” sensor and then bandpass
+filtered; the individual heartbeat waveforms are segmented by their R-peaks, and finally a template is produced as the mean or median of
+consecutive individual heartbeat waveforms.
+(c) Dcos (xi
+, µx) > (µDcos(xi,µx)+0.5·σDcos(xi,µx)).
+For performance evaluation we tested an instance-based
+learning, template matching approach (through a k-NN classifier), and also a Support Vector Machine (SVM) approach,
+as will be described next. The templates, xi
+, are formed using individual heartbeat waveforms, acquired typically in
+less than 1s (considering a heart rhythm of 60 bpm)
+2
+, and
+obtained either by calculating their mean x, or median x˜.
+4. Matching
+We call a given dataset used for enrollment the training
+set Dtrain. Considering x
+(wj )
+i
+to be the i
+th instance of the
+m available training templates for subject wj (x
+(wj )
+i
+being
+2The typical heart rate ranges from 60-100 bpm
+the mean or median of 5 consecutive heartbeat waveforms),
+Dtrain is defined as:
+Dtrain = {x
+(wj )
+i ∈ R
+p
+, wj ∈ 1, · · · , #W , i ∈ 1, · · · , m},
+(1)
+where W is the set of class labels or users.
+4.1. Instance-based Learning
+For the template matching approach, given an unknown
+template, xu, an estimated class prediction, wˆu, is obtained
+by determining the most represented class or grouping wj
+among the neighborhood of the k nearest patterns from the
+data set Dtrain (k-NN classifier), according to a distance
+metric, D(xu, xj ), ∀xj ∈ Dtrain. We compared the classical Euclidean distance, Deucl, with the Cosine distance,
+Dcos, defined as:
+Deucl 
+xu, x
+(wl)
+j
+
+=
+vuutXp
+k=1
+(xu[k] − x
+(wl)
+j
+[k])2, (2)
+Dcos 
+xu, x
+(wl)
+j
+
+= 1 −
+Pp
+k=1 xu[k]x
+(wl)
+j
+[k]
+qPp
+k=1 xu[k]
+2 Pp
+k=1 x
+(wl)
+j
+[k]
+2
+.
+(3)
+A distance matrix was computed, describing distances
+between each instance from the test set and each of the
+training templates in Dtrain. For experimental purposes,
+a 3-NN classifier was used, in which the class wˆu of a given
+unknown template, xu, is defined as the most represented
+class among the 3 nearest templates of the training set with
+the lowest distance D(,) to xu:
+wˆu = arg max
+u=1,··· ,#W
+X
+k
+i=1
+V ote 
+xu, x
+(wu)
+i
+
+(4)
+where each vote assigned to xu, corresponds to the label
+obtained from the closest training templates.
+For authentication, the number of falsely accepted and
+falsely rejected patterns is determined, verifying if the majority of the neighbors has a distance smaller than a predefined threshold.
+4.2. Support Vector Machines
+Consider the binary classification setup with training set
+DSV M, composed of l instances, to be a subset of the complete training set Dtrain, comprising only the training samples of two classes, here denoted as w = −1 or w = 1:
+DSV M = {(xi
+, wxi
+)|xi ∈ R
+p
+, wxi ∈ −1, 1}
+n
+i=1. (5)
+Support Vector Machines (SVM) find the separating hyperplane (v · x = b), maximizing the margin. In order to
+deal with the case where the hyperplane splitting introduces
+misclassifications, the concept of “soft” margin is used. The
+method introduces slack variables, ξi
+, which measure the
+degree of misclassification of sample xi
+, weighted by the
+parameter C, leading to the following primal formulation:
+min
+w,ξ,b
+1
+2
+||v||2 + C
+Xn
+i=1
+ξi (6)
+s.t. wxi
+(v · x − b) ≥ 1 − ξi
+. (7)
+The learning process is assumed to be performed offline.
+Once the model is estimated (v and b), the class prediction,
+wxu
+, for an unknown object, xu, is determined by
+wxu = sgn(v · x + b). (8)
+Table 1. EER (%) for the “dove-like” population across T1 − T2
+when using the 3−NN classifier with the Dcos distance metric and
+the mean waves x as template.
+D(,) Dcos Deucl
+T x˜ x x˜ x
+Session T1-T2 4.7 4.5 5.2 5.3
+# Subjects 42 37 34 32
+In our approach we built N − 1 models for each individual, each model enabling the comparison of individual j
+with another of the N − 1 remaining models. As an example, the model fjk, trained for individuals j and k,
+fjk(xu) : xu ∈ R
+p → wxjk ∈ j, k, (9)
+estimates a decision over instance x, classifying it as individual j or k. In authentication, we test all the N − 1
+trained models, fj·
+, where j is the class of the claimed identity, and accept it as genuine only when all the models positively classify the testing instance.
+5. Experimental Results
+We evaluated the permanence of the ECG templates using two independent sets of heartbeat waveforms acquired
+according to the methodology described in Section 3; we
+refer to the first and second acquisition sessions as T1 and
+T2, respectively. The T1 − T2 & T2 − T1 tests were conducted over the entire database, using T1 for training and
+T2 for test (and vice versa), while the tests for the T1 − T1
+and T2 − T2 consider Dtrain to have 30% of the templates
+available within a given session.
+In [25] Yanger and Dunstone introduced the concept of
+zooplot, a tool that helps in the analysis of different biometric traits, allowing the categorization of different types
+of users based on their separability. Figure 5 presents the
+zooplot obtained using the 3-NN classifier with Dcos as the
+metric and x as the template, where each point represents a
+single subject.
+A majority of the population (59%, or 37 users) has a
+“dove-like” behavior, while the remaining subjects are mainly
+distributed through the “chameleon-like” category. In our
+case, this last group is composed of users for which the
+heartbeat waveform changed significantly between T1 and
+T2, this change being due to: a) different heart rates between both recording sessions; and b) drastic morphological
+changes that require clinical validation.
+Table 1 summarizes the Equal Error Rate (EER) for the
+“dove-like” subjects using the template matching approach.
+The best performance was achieved by using Dcos, with x
+as the templates, where the EER = 4.5%. Figure 6 represents the distribution of genuine and impostors distances by
+Figure 5. Zooplot [25]. The x axis represents the Genunine Performance, and the y axis the Impostor Performance, when using
+the 3−NN classifier with the Dcos distance metric and the mean
+waves x as template.
+Figure 6. Empirical distance distribution when using the 3−NN
+classifier with the Dcos distance metric and the mean waves x as
+the template for between-session matching (T1 − T2). The genuine distribution is shown in green, while the impostor distribution
+is shown in red.
+using the 3−NN classifier with Dcos as distance metric and
+x as templates. The overlap of the genuine and imposter
+curves in this situation is small, showing that for the “dovelike” population the separability is apparent, even when using data from multiple sessions (T1 − T2). In Table 2, we
+present the results for the entire population, showing the
+performance within-session (T1 − T1 and T2 − T2), and
+for T1 − T2 & T2 − T1. The ROC curves for the best case
+classifier configuration, in which the median wave is used
+as the template and SVM classifier is used, are presented in
+Figure 7.
+Figure 7. ROC curves for the entire population (63 subjects; T1 −
+T2) using SVMs with the median wave as template.
+6. Discussion
+The performance across recording sessions (T1 − T2 &
+T2−T1) revealed that the heartbeat waveform changed significantly for several subjects. Figure 8 shows an example
+of two subjects, where a large variation in the templates was
+found; the black and dashed lines correspond, respectively,
+to the mean wave and standard deviation (excluding the outliers). The first example shows a template morphing due to
+different heart rates in T1 and T2. The P and the T complexes are affected by the heart rate, and as one can observe,
+their latencies can really change. The second case shows an
+example of a heartbeat waveform shape shift between T1
+and T2, where the R and S complexes changed their morphology significantly.
+Our methodology depends on the segmentation and alignment of the heartbeats, and heart rate changes will bias the
+alignment between heartbeat waveforms, since several complexes change their latencies. In the literature there are several approaches focusing on extraction of features that are
+invariant to the heart rate, or that try to normalize heartbeats
+[21, 22, 23], which is also the topic of ongoing work in our
+group. In this paper, we focused on the use of latency and
+amplitude features, in which the template morphing is directly expressed. Regarding the classifier, we adopted template matching and SVMs, which, as shown by the preliminary results given in this work, are quite sensitive to morphological changes in the templates.
+Possible mitigation procedures for the morphing effects
+detected in our study may involve the use of feature spaces
+Table 2. EER (µ±σ%) for the entire population (63 subjects) for the cases where the train and test sets belong to the same session (T1−T1
+and T2 − T2) and to different sessions (T1 − T2 & T2 − T1).
+D(,) Dcos Deucl SV M
+T x˜ x x˜ x x˜ x
+Session
+T1-T1 3.00 ± 0.19 2.63 ± 0.13 2.87 ± 0.17 2.99 ± 0.18 1.07 ± 0.23 0.99 ± 0.20
+T2-T2 4.49 ± 0.13 4.53 ± 0.18 3.32 ± 0.14 3.38 ± 0.18 1.92 ± 0.13 2.01 ± 0.17
+T1-T2 13.26 13.31 11.79 12.16 9.10 9.47
+T2-T1 13.00 13.30 14.40 14.15 9.68 9.37
+(a) Template morphing due to different heart rates in T1 and T2
+(b) Heartbeat waveform shape shift between to T1 and T2
+Figure 8. Examples of two non-dove-like cases, where a different
+heart rate between recording sessions leads to different waveform
+morphologies (a), and a shape shifting occurs due to reasons that
+require clinical validation (b).
+based on spectral components of the heartbeat waveform.
+Another mitigation procedure is the periodic update and/or
+increase of the knowledge base and enrollment data, so that
+the system can have templates that are representative of different states that the subject typically undergoes through.
+Furthermore, we believe that additional work can be done at
+the sensor level targeting ECG multibiometrics to improve
+permanence across time, by increasing the analog-to-digital
+conversion resolution, and/or by increasing the sampling
+rate.
+7. Conclusions
+Research on Electrocardiographic (ECG) signals has advanced a long way from it’s clinical roots, to novel application domains in areas so diverse as biometric recognition. Given the intrinsic properties of the ECG, it can be
+particularly useful for low security verification (1:1 matching), especially given that the sensor device does not require an explicit interaction procedure, and is more natural
+to the user, as the “off-the-person” approach followed in this
+work. The short-term performance of ECG signals has been
+extensively demonstrated in the literature, which is already
+very promising in a multibiometrics context. If combined
+with other modalities, there are several scenarios where the
+ECG modality can serve as an important add-on.
+For example, in multibiometrics applications, a periodic
+recognition with a hard biometrics (e.g. fingerprint) could
+be required, which would then be continuously confirmed
+by the ECG (considering that ECG data would be collected
+simultaneously with the fingerprint template). We refer the
+reader to the work by Silva et al. [18] for a discussion of the
+potential outreach and role of the ECG in biometrics.
+However, the field is severely lacking studies that demonstrate the permanence of ECG biometric templates, which
+would greatly increase the added-value and applicability of
+this new modality. As such, in this paper we have performed
+a preliminary study based on data collected in two separate
+time instants. Experimental results have shown the ECG to
+be reasonably different across individuals, even when training the recognition system with data collected at a first time
+instant to classify the data collected several months later.
+Our work has shown that the ECG exhibits promising
+recognition rates for biometric authentication both in shortterm (minutes apart) and long-term data (months apart). With
+respect to the taxonomy in [25], within the “dove-like” population we obtained matching rates for authentication with
+Equal Error Rates (EER) of 4.5%. Regarding the performance for the entire population, the best results for longterm data were achieved using a SVM classifier, with which
+an EER of 9.1% was obtained. Our main contributions are:
+a) Further insight regarding the performance of “off-theperson” ECG data;
+b) Recognition results for data collected with several months
+apart are presented.
+Future work will focus on the characterization of sources
+of variability such as heart rate and morphological shape
+shifts in the templates. Our results, together with the latest
+advances in recognition methods, template extraction, and
+sensor devices, can reinforce that ECG is a viable trait for
+multibiometric or standalone biometrics, low user throughput, real-world scenarios.
+Acknowledgments
+This work was partially funded by Fundac¸ao para a Ci- ˜
+encia e Tecnologia (FCT) under the grants PTDC/EEI-SII/ ˆ
+2312/2012, SFRH/BD/65248/2009 and SFRH/PROTEC/4
+9512/2009, whose support the authors gratefully acknowledge. The team would also like to thank the following individuals for their invaluable support to this work: Carlos Carreiras and Filipe Canento from the IT - Instituto de
+Telecomunicac¸oes, and Prof. Marta Aires de Sousa, Prof. ˜
+Nuno Raposo, Joana Santos, and Ana Taborda from the
+Health School of the Portuguese Red Cross.
+References
+[1] F. Agrafioti, J. Gao, and D. Hatzinakos. Biometrics, chapter
+Heart Biometrics: Theory, Methods and Applications, Biometrics. InTech, 2011.
+[2] L. Biel, O. Petterson, L. Phillipson, and P. Wide. ECG analysis: A new approach in human identification. IEEE Trans.
+on Instrumentation and Measurement, 50(3):808–812, 2001.
+[3] O. Boumbarov, Y. Velchev, and S. Sokolov. ECG personal identification in subspaces using radial basis neural
+networks. In IEEE Int’l Workshop on Intel. Data Acq. and
+Adv. Computing Systems, pages 446 –451, 2009.
+[4] A. Chan, M. Hamdy, A. Badre, and V. Badee. Wavelet distance measure for person identification using electrocardiograms. IEEE Trans. Instrum. Meas., 57(2):248–253, 2008.
+[5] C.-C. Chiu, C.-M. Chuang, and C.-Y. Hsu. A novel personal
+identity verification approach using a discrete wavelet transform of the ECG signal. In Proc. of the Int’l Conf. on Multimedia and Ubiquitous Engineering, pages 201–206, 2008.
+[6] D. Coutinho, A. Fred, and M. Figueiredo. One-lead ECGbased personal identification using Ziv-Merhav cross parsing. In Proc. of the 20th Int’l Conf. on Pattern Rec., 2010.
+[7] A. L. Goldberger, L. Amaral, L. Glass, J. Hausdorff,
+P. Ivanov, R. Mark, J. Mietus, G. Moody, C. Peng, and
+H. Stanley. PhysioBank, PhysioToolkit, and PhysioNet:
+Components of a new research resource for complex physiologic signals. Circulation, 101(23):215–220, 2000.
+[8] S. Israel, J. Irvine, A. Cheng, M. Wiederhold, and B. Wiederhold. ECG to identify individuals. Pattern Recognition,
+38(1):133–142, 2005.
+[9] A. K. Jain, R. M. Bolle, and S. Pankanti. Biometrics: Personal Identification in Networked Society. Springer, 2005.
+[10] M. Kyoso and A. Uchiyama. Development of an ECG identification system. In Proc. of the 23rd Int’l Conf. of the IEEE
+EMBS, volume 4, pages 3721 – 3723, 2001.
+[11] A. Lourenc¸o, H. Silva, and A. Fred. Unveiling the biometric potential of Finger-Based ECG signals. Computational
+Intelligence and Neuroscience, 2011.
+[12] A. Lourenc¸o, H. Silva, and A. Fred. ECG-based biometrics:
+A real time classification approach. In Proc. 22nd IEEE Int’l
+Workshop on Machine Learning for Signal Proc., 2012.
+[13] J. Malmivuo and R. Plonsey. Bioelectromagnetism: Principles and Applications of Bioelectric and Biomagnetic Fields.
+Oxford University Press, USA, 1st edition, 1995.
+[14] I. Odinaka, P.-H. Lai, A. Kaplan, J. O’Sullivan, E. Sirevaag,
+and J. Rohrbaugh. ECG biometric recognition: A comparative analysis. IEEE Trans. on Inf. Forensics and Security,
+7(6):1812 –1824, Dec. 2012.
+[15] T. W. Shen, W. Tompkins, and Y. H. Hu. Implementation
+of a one-lead ECG human identification system on a normal
+population. J. Eng. Computer Innovations, 2:12–21, 2011.
+[16] T. W. Shen, W. J. Tompkins, and Y. H. Hu. One-lead ECG for
+identity verification. Proc. of the 24th Conf. and the Annual
+Fall Meeting of the IEEE EMBS, 1:62–63, 2002.
+[17] H. Silva, H. Gamboa, and A. Fred. Applicability of lead v2
+ECG measurements in biometrics. In Proc. of the Med-e-Tel
+Forum, pages 177–180, Apr. 2007.
+[18] H. Silva, A. Lourenc¸o, F. Canento, A. Fred, and N. Raposo.
+ECG biometrics: Principles and applications. In Proc. of the
+6th BIOSIGNALS Conf., 2013.
+[19] H. Silva, A. Lourenc¸o, A. Fred, and J. Filipe. Clinical data
+privacy and customization via biometrics based on ECG signals. In Proc. 7th USAB Conf., USAB, 2011.
+[20] H. Silva, A. Lourenc¸o, R. Lourenc¸o, P. Leite, D. Coutinho,
+and A. Fred. Study and evaluation of a single differential
+sensor design based on electro-textile electrodes for ECG
+biometrics applications. In Proc. IEEE Sensors Conf., 2011.
+[21] Y. Singh, , and S. Singh. Evaluation of electrocardiogram for
+biometric authentication. J. of Inf. Sec., 3(1):39–48, 2012.
+[22] Y. Singh and P. Gupta. ECG to individual identification. In
+Proc. of the 2nd IEEE BTAS Conf., pages 1–8, 2008.
+[23] M. Tawfik, H. Selim, and T. Kamal. Human identification
+using time normalized QT signal and the QRS complex of
+the ECG. In Proc. of the 7th Int. Symp. on Comm. Systems,
+Networks and Digital Signal Proc., pages 755–759, 2010.
+[24] Y. Wang, F. Agrafioti, D. Hatzinakos, and K. N. Plataniotis.
+Analysis of human electrocardiogram for biometric recognition. EURASIP J. Adv. Signal Process, page 19, 2008.
+[25] N. Yager and T. Dunstone. The biometric menagerie. IEEE
+Trans. on Pat. Anal. and Machine Intell., 32:220–230, 2010.
+[26] C. Zhao, T. Wysocki, F. Agrafioti, and D. Hatzinakos. Securing handheld devices and fingerprint readers with ECG
+biometrics. In Proc. of the 5th IEEE BTAS Conf., pages 150
+–155, 2012.
